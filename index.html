@@ -1,0 +1,1419 @@
+<title>Narmatha M</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap">
+
+<style>
+:root {
+  --bg: #0a0f0d;
+  --bg-alt: #0d1512;
+  --fg: #f0f5f3;
+  --fg-muted: #94a3a0;
+  --accent: #00d4aa;
+  --accent-secondary: #00b4d8;
+  --accent-light: #064e3b;
+  --accent-gradient: linear-gradient(135deg, #00d4aa 0%, #00b4d8 50%, #0ea5e9 100%);
+  --glow: rgba(0, 212, 170, 0.2);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-elegant: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #0a0f0d;
+    --bg-alt: #0d1512;
+    --fg: #f0f5f3;
+    --fg-muted: #94a3a0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="light"] {
+  --bg: #f8faf9;
+  --bg-alt: #eef3f0;
+  --fg: #0a0f0d;
+  --fg-muted: #4a5a53;
+  --accent: #00a884;
+  --accent-light: #d1fae5;
+  --glow: rgba(0, 168, 132, 0.1);
+  color-scheme: light;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  padding-inline: 0;
+  position: relative;
+}
+
+/* Bug Silhouette - Bottom Left */
+.bug-bg-topright {
+  position: fixed;
+  bottom: -100px;
+  left: -80px;
+  width: 450px;
+  height: 560px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+}
+
+/* Hide second bug */
+.bug-bg-bottomleft {
+  display: none;
+}
+
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-inline: var(--space-md);
+}
+
+.section {
+  padding-block: var(--space-xl);
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: var(--space-lg);
+  text-wrap: balance;
+}
+
+/* Apple-style Navigation */
+nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 99999 !important;
+  padding: 0 var(--space-md);
+  height: 52px;
+  background: #0d1512 !important;
+  border-bottom: 1px solid rgba(0, 212, 170, 0.3);
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  max-width: 1024px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(0.8) translateY(4px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+nav.scrolled .nav-avatar {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.nav-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2rem);
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--fg);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  letter-spacing: 0.01em;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--bg-alt);
+  padding-top: 80px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-lg);
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.hero-text { max-width: 600px; }
+
+.hero-greeting {
+  font-size: 1.125rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: var(--space-md);
+  color: var(--fg);
+}
+
+.hero-title span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.hero-cta:hover { gap: var(--space-sm); }
+.hero-cta svg { transition: transform 0.2s; }
+.hero-cta:hover svg { transform: translateX(4px); }
+
+.hero-photo {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 60px var(--glow), 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--accent);
+}
+
+@media (max-width: 768px) {
+  .hero-photo {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto var(--space-md);
+    order: -1;
+  }
+}
+
+/* About */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .about-content { grid-template-columns: 1fr; }
+}
+
+.about-text p {
+  font-size: 1.0625rem;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.about-text p:last-child { margin-bottom: 0; }
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9375rem;
+  color: var(--fg-muted);
+  margin-top: var(--space-xs);
+}
+
+/* Experience with Timeline */
+.experience { background: var(--bg-alt); }
+
+.timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--glow);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: var(--space-xl);
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: var(--bg-alt);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-item.current .timeline-dot {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--glow);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 212, 170, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0); }
+}
+
+.timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.9375rem;
+}
+
+.timeline-location {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+.current-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(0, 212, 170, 0.15);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  border-radius: 100px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.current-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.timeline-company {
+  font-size: 1.125rem;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.timeline-description {
+  font-size: 1rem;
+  color: var(--fg-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-sm);
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.tag {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.tag::before {
+  content: '—';
+  margin-right: var(--space-xs);
+  opacity: 0.5;
+}
+
+/* Projects */
+.projects { background: var(--bg-alt); }
+
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.project-item { max-width: 700px; }
+
+.project-type {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.project-description {
+  font-size: 1rem;
+  color: var(--fg-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-sm);
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* Education with Timeline */
+.education { background: var(--bg-alt); }
+
+.education-timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.education-timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--glow);
+}
+
+.education-item {
+  position: relative;
+  padding-bottom: var(--space-lg);
+}
+
+.education-item:last-child { padding-bottom: 0; }
+
+.education-dot {
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: var(--bg-alt);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.education-year {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.9375rem;
+  margin-bottom: 4px;
+}
+
+.education-degree {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.education-school {
+  color: var(--fg-muted);
+  font-size: 1rem;
+}
+
+.education-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 113, 227, 0.1);
+  border-radius: 10px;
+  margin-bottom: var(--space-sm);
+  color: var(--accent);
+}
+
+/* Skills with Icons */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+.skill-group h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--accent);
+}
+
+.skill-group h3 svg {
+  width: 24px;
+  height: 24px;
+}
+
+.skill-group ul { list-style: none; }
+
+.skill-group li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  color: var(--fg-muted);
+  padding-block: 6px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.skill-group li:hover {
+  color: var(--fg);
+  transform: translateX(4px);
+}
+
+.skill-group li svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Contact */
+/* AI Tools Section */
+.ai-tools {
+  background: var(--bg-alt);
+}
+
+.ai-intro {
+  max-width: 700px;
+  margin-bottom: var(--space-lg);
+}
+
+.ai-intro p {
+  font-size: 1.125rem;
+  color: var(--fg-muted);
+}
+
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 900px) {
+  .ai-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .ai-grid { grid-template-columns: 1fr; }
+}
+
+.ai-card {
+  padding: var(--space-md);
+  background: var(--bg);
+  border: 1px solid rgba(0, 212, 170, 0.15);
+  border-radius: 16px;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.ai-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 40px var(--glow);
+}
+
+.ai-card-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  border-radius: 12px;
+  margin-bottom: var(--space-sm);
+}
+
+.ai-card-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #fff;
+}
+
+.ai-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+  color: var(--fg);
+}
+
+.ai-card p {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+.ai-experience {
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-experience > h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--accent);
+}
+
+.ai-experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 700px) {
+  .ai-experience-grid { grid-template-columns: 1fr; }
+}
+
+.ai-exp-item {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.ai-exp-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+  margin-top: 2px;
+}
+
+.ai-exp-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ai-exp-item h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--fg);
+}
+
+.ai-exp-item p {
+  font-size: 0.9375rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+/* Contact */
+.contact-content { max-width: 600px; }
+
+.contact-intro {
+  font-size: 1.125rem;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.contact-link:hover { color: var(--accent); }
+
+.contact-link svg {
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+}
+
+.contact-location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--fg);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.contact-location svg {
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+}
+
+/* Footer */
+footer {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+footer span { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  .current-badge::before, .timeline-item.current .timeline-dot { animation: none; }
+  .nav-avatar { transition: none; }
+}
+</style>
+
+<!-- Realistic Ladybug Silhouette - Bottom Left Background -->
+<svg class="bug-bg-topright" viewBox="0 0 120 150">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <!-- Antennae - curved and segmented -->
+    <path d="M48 38 Q42 28 38 20 Q36 14 32 8" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>
+    <path d="M72 38 Q78 28 82 20 Q84 14 88 8" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>
+    <!-- Antenna tips -->
+    <ellipse cx="32" cy="7" rx="3" ry="4" fill="#ffffff" fill-opacity="0.5"/>
+    <ellipse cx="88" cy="7" rx="3" ry="4" fill="#ffffff" fill-opacity="0.5"/>
+
+    <!-- Head with eyes -->
+    <ellipse cx="60" cy="42" rx="18" ry="14" fill="url(#bodyGrad)"/>
+    <!-- Eye bumps -->
+    <circle cx="52" cy="38" r="5" fill="#ffffff" fill-opacity="0.3"/>
+    <circle cx="68" cy="38" r="5" fill="#ffffff" fill-opacity="0.3"/>
+
+    <!-- Pronotum (thorax shield) with markings -->
+    <ellipse cx="60" cy="56" rx="24" ry="12" fill="url(#bodyGrad)"/>
+    <ellipse cx="52" cy="54" r="4" fill="#0a0f0d" fill-opacity="0.6"/>
+    <ellipse cx="68" cy="54" r="4" fill="#0a0f0d" fill-opacity="0.6"/>
+
+    <!-- Body/Elytra (wing covers) - realistic dome shape -->
+    <path d="M60 62
+             Q18 75 22 110
+             Q24 135 60 145
+             Q96 135 98 110
+             Q102 75 60 62"
+          fill="url(#bodyGrad)" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1"/>
+
+    <!-- Wing split line (suture) -->
+    <line x1="60" y1="62" x2="60" y2="145" stroke="#0a0f0d" stroke-opacity="0.7" stroke-width="2"/>
+
+    <!-- Spots - asymmetric and varied sizes for realism -->
+    <ellipse cx="40" cy="82" rx="8" ry="7" fill="#0a0f0d" fill-opacity="0.6"/>
+    <ellipse cx="80" cy="80" rx="7" ry="8" fill="#0a0f0d" fill-opacity="0.6"/>
+    <ellipse cx="35" cy="105" rx="6" ry="5" fill="#0a0f0d" fill-opacity="0.55"/>
+    <ellipse cx="85" cy="102" rx="5" ry="6" fill="#0a0f0d" fill-opacity="0.55"/>
+    <ellipse cx="45" cy="125" rx="5" ry="4" fill="#0a0f0d" fill-opacity="0.5"/>
+    <ellipse cx="75" cy="128" rx="4" ry="5" fill="#0a0f0d" fill-opacity="0.5"/>
+    <circle cx="60" cy="135" r="3" fill="#0a0f0d" fill-opacity="0.45"/>
+
+    <!-- Legs - 3 pairs with joints -->
+    <g stroke="#ffffff" stroke-opacity="0.4" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Front legs (from pronotum) -->
+      <path d="M38 58 Q28 52 20 45 Q15 40 8 32"/>
+      <path d="M82 58 Q92 52 100 45 Q105 40 112 32"/>
+      <!-- Middle legs -->
+      <path d="M30 85 Q18 82 10 78 Q5 75 -5 70"/>
+      <path d="M90 85 Q102 82 110 78 Q115 75 125 70"/>
+      <!-- Rear legs (longer) -->
+      <path d="M35 115 Q22 122 15 132 Q10 140 2 150"/>
+      <path d="M85 115 Q98 122 105 132 Q110 140 118 150"/>
+    </g>
+
+    <!-- Subtle body texture lines -->
+    <path d="M40 75 Q50 72 60 75" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1" fill="none"/>
+    <path d="M60 75 Q70 72 80 75" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1" fill="none"/>
+  </g>
+</svg>
+
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <img src="photo.png" alt="Narmatha M" class="nav-avatar">
+      <span class="nav-name">Narmatha M</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#ai-tools">AI Tools</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content fade-in">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-title">Narmatha <span>M</span></h1>
+        <p class="hero-subtitle">Associate SDET crafting scalable automation frameworks and ensuring software quality through innovation.</p>
+        <a href="#contact" class="hero-cta">
+          Get in touch
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <img src="photo.png" alt="Narmatha M" class="hero-photo">
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">About</span>
+      <h2 class="section-title">Building Quality at Scale</h2>
+    </div>
+    <div class="about-content">
+      <div class="about-text fade-in">
+        <p>Results-driven SDET with expertise in Playwright (Gherkin/BDD) for scalable UI automation framework development and end-to-end service testing.</p>
+        <p>Experienced in testing Content Hub and PHP Environment Services, validating REST APIs, and performing deep-dive Root Cause Analysis using production-mock zones.</p>
+        <p>Skilled in containerising test environments with Docker and accelerating release cycles through Jenkins and GitHub Actions CI/CD pipelines.</p>
+      </div>
+      <div class="stats fade-in">
+        <div class="stat">
+          <div class="stat-number">2.5+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Projects Simultaneously</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Technologies Mastered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Commitment to Quality</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="section experience">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Experience</span>
+      <h2 class="section-title">Professional Journey</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item current fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <span class="timeline-date">Apr 2026 — Present</span>
+          <span class="timeline-location">Remote</span>
+          <span class="current-badge">Current</span>
+        </div>
+        <h3 class="timeline-title">Associate SDET</h3>
+        <div class="timeline-company">ACQUIA</div>
+        <p class="timeline-description">Building scalable BDD automation frameworks using Playwright. Testing Content Hub and PHP Environment Services with comprehensive API validation. Leveraging AI tools like Claude Code and Google Gemini for enhanced scenario coverage and optimising Gherkin step definitions.</p>
+        <div class="timeline-tags">
+          <span class="tag">Playwright</span>
+          <span class="tag">BDD/Gherkin</span>
+          <span class="tag">API Testing</span>
+          <span class="tag">AI-Assisted Testing</span>
+        </div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <span class="timeline-date">May 2024 — Apr 2026</span>
+          <span class="timeline-location">Bangalore</span>
+        </div>
+        <h3 class="timeline-title">Associate Software QA Engineer</h3>
+        <div class="timeline-company">E2OPEN</div>
+        <p class="timeline-description">Developed and maintained Selenium (Java) and Playwright (Python) frameworks. Improved test coverage from 74% to 86.3%. Actively contributed to LLM model agent testing in SaaS applications, validating AI-driven workflows and system reliability. Strong advocate of Agile methodology and TDD practices.</p>
+        <div class="timeline-tags">
+          <span class="tag">Selenium</span>
+          <span class="tag">Python</span>
+          <span class="tag">Jenkins CI/CD</span>
+          <span class="tag">LLM Testing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section projects">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Work</span>
+      <h2 class="section-title">Featured Projects</h2>
+    </div>
+    <div class="projects-list">
+      <div class="project-item fade-in">
+        <div class="project-type">Core Project</div>
+        <h3 class="project-title">AI-Driven Shift-Left Quality Platform</h3>
+        <p class="project-description">Designed an internal AI agentic testing platform to automate test gap auditing and auto-generate Playwright test suites for feature-flagged developer PRs. Engineered an AI Test Auditor agent that parses OpenAPI/YAML schemas and PRDs alongside existing Gherkin test suites. Saved ~5 hours per sprint per developer.</p>
+        <div class="project-tech">
+          <span class="tag">AI Agents</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">BDD</span>
+        </div>
+      </div>
+      <div class="project-item fade-in">
+        <div class="project-type">Academic Project</div>
+        <h3 class="project-title">Automated Attendance System</h3>
+        <p class="project-description">Python-powered attendance management using real-time face recognition with OpenCV. Features interactive dashboard with visual analytics and deep learning models for high identification accuracy. Replaces manual roll-call with a contactless, image-based approach.</p>
+        <div class="project-tech">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Computer Vision</span>
+        </div>
+      </div>
+      <div class="project-item fade-in">
+        <div class="project-type">Automation Project</div>
+        <h3 class="project-title">YouTube Subscription Automation</h3>
+        <p class="project-description">Selenium-based automation scripts for YouTube Subscription module. Enhanced test coverage by 30% and reduced manual testing effort by 40%, accelerating regression cycles. Built with Selenium + TestNG + Maven.</p>
+        <div class="project-tech">
+          <span class="tag">Selenium</span>
+          <span class="tag">Java</span>
+          <span class="tag">TestNG</span>
+          <span class="tag">Maven</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="section education">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Education</span>
+      <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="education-timeline">
+      <div class="education-item fade-in">
+        <div class="education-dot"></div>
+        <div class="education-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="education-year">2020 — 2023</div>
+        <div class="education-degree">Bachelor of Computer Applications</div>
+        <div class="education-school">Holy Cross College, Trichy</div>
+      </div>
+      <div class="education-item fade-in">
+        <div class="education-dot"></div>
+        <div class="education-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="education-year">2018 — 2020</div>
+        <div class="education-degree">Higher Secondary — Computer Science</div>
+        <div class="education-school">Zamindar's Hr. Sec. School, Thuraiyur</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Expertise</span>
+      <h2 class="section-title">Technical Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Automation
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 2.75a2.25 2.25 0 0 0-2.25 2.25v2.5H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3h-2.25V5a2.25 2.25 0 0 0-2.25-2.25h-1zm1 4.75V5a.75.75 0 0 0-.75-.75h-1a.75.75 0 0 0-.75.75v2.5h2.5z"/></svg>
+            Playwright (Gherkin/BDD)
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Selenium (Java/Python)
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v18H3V3zm16.5 16.5v-15h-15v15h15zM12 7.5l4.5 4.5-4.5 4.5L7.5 12 12 7.5z"/></svg>
+            TestNG, JUnit
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Karate DSL
+          </li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9"/></svg>
+          API Testing
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 2.75a2.25 2.25 0 0 1 4.5 0v1.5a2.25 2.25 0 0 1-4.5 0v-1.5zM5 2.75a2.25 2.25 0 0 1 4.5 0v1.5a2.25 2.25 0 0 1-4.5 0v-1.5zM16.75 8h-9.5A2.25 2.25 0 0 0 5 10.25v9.5A2.25 2.25 0 0 0 7.25 22h9.5A2.25 2.25 0 0 0 19 19.75v-9.5A2.25 2.25 0 0 0 16.75 8z"/></svg>
+            Postman
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2z"/></svg>
+            REST APIs
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Microservices Validation
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/></svg>
+            Mocking & Service Testing
+          </li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          DevOps & CI/CD
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.98 11.08c-.14.19-.38.25-.56.15-.18-.09-.27-.3-.2-.49.06-.19.22-.34.41-.37.19-.03.37.05.47.22.1.17.02.41-.12.49zm-2.29.99c-.14.19-.38.25-.56.15-.18-.09-.27-.3-.2-.49.06-.19.22-.34.41-.37.19-.03.37.05.47.22.1.17.02.41-.12.49zm9.23-5.16c-.04-.14-.18-.24-.35-.24h-2.84c.6-.75 1.03-1.59 1.22-2.49.04-.19-.02-.38-.15-.51-.14-.13-.33-.19-.51-.16-1.49.25-2.8.88-3.89 1.78-.69-.51-1.5-.86-2.4-1.01-.18-.03-.38.03-.52.16-.14.13-.22.32-.2.51.06.36.16.71.3 1.03H6.31c-.17 0-.32.1-.38.26L2.03 14.8c-.04.1-.04.22 0 .32.05.1.13.18.23.22l4.92 1.91c.06.02.13.03.19.03.15 0 .3-.07.4-.19l3.23-4.28 3.23 4.28c.1.13.25.2.41.2.06 0 .13-.01.19-.03l4.92-1.91c.1-.04.18-.12.23-.22.04-.1.04-.22 0-.32l-3.9-8.51z"/></svg>
+            Docker
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z"/></svg>
+            Jenkins
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub Actions
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.6 10.59L8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82z"/></svg>
+            Git & Version Control
+          </li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M16 11.5c2.5.5 4 2 4 4v3H4v-3c0-2 1.5-3.5 4-4"/><circle cx="12" cy="17" r="1"/></svg>
+          AI/LLM Testing
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Workflow Validation
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+            Prompt Testing
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Anomaly Detection
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Output Consistency
+          </li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Databases
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.58 3 4 4.79 4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7c0-2.21-3.58-4-8-4zm0 2c3.87 0 6 1.5 6 2s-2.13 2-6 2-6-1.5-6-2 2.13-2 6-2zM6 17v-1.53c1.51.83 3.67 1.37 6 1.37s4.49-.54 6-1.37V17c0 .5-2.13 2-6 2s-6-1.5-6-2zm0-4v-1.53c1.51.83 3.67 1.37 6 1.37s4.49-.54 6-1.37V13c0 .5-2.13 2-6 2s-6-1.5-6-2z"/></svg>
+            SQL
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            CRUD Operations
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/></svg>
+            Data Validations
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            Relational Tables
+          </li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Tools & Methods
+        </h3>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+            JIRA, TestRail
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Agile/Scrum
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4V8h-2V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm9-13H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2z"/></svg>
+            Shift-Left Testing
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            Root Cause Analysis
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai-tools" class="section ai-tools">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">AI & Innovation</span>
+      <h2 class="section-title">AI Tools & Experience</h2>
+    </div>
+    <div class="ai-intro fade-in">
+      <p>Leveraging cutting-edge AI tools to enhance testing efficiency, generate comprehensive test coverage, and validate AI-driven systems.</p>
+    </div>
+    <div class="ai-grid">
+      <div class="ai-card fade-in">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3>Claude Code</h3>
+        <p>AI-powered code assistance for test script development, debugging, and optimizing Gherkin step definitions.</p>
+      </div>
+      <div class="ai-card fade-in">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Google Gemini</h3>
+        <p>Understanding module/service architecture, analyzing complex system behaviors, and documentation comprehension.</p>
+      </div>
+      <div class="ai-card fade-in">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16 18l2-2v-3m4-4V4h-5m-9 14H4V4h5"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h3>GitHub Copilot</h3>
+        <p>Enhancing scenario coverage, generating edge-case test data, and accelerating test automation development.</p>
+      </div>
+      <div class="ai-card fade-in">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>GitHub AI Chat</h3>
+        <p>Code review assistance, debugging support, and intelligent suggestions for test optimization.</p>
+      </div>
+    </div>
+    <div class="ai-experience fade-in">
+      <h3>AI/LLM Testing Experience</h3>
+      <div class="ai-experience-grid">
+        <div class="ai-exp-item">
+          <div class="ai-exp-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          </div>
+          <div>
+            <h4>LLM Agent Testing</h4>
+            <p>Actively contributing to LLM model agent testing in SaaS applications, validating AI-driven workflows, response accuracy, and system reliability.</p>
+          </div>
+        </div>
+        <div class="ai-exp-item">
+          <div class="ai-exp-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          </div>
+          <div>
+            <h4>Prompt Testing & Validation</h4>
+            <p>Performing functional testing on LLM-based modules, validating output consistency, prompt effectiveness, and response quality.</p>
+          </div>
+        </div>
+        <div class="ai-exp-item">
+          <div class="ai-exp-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          </div>
+          <div>
+            <h4>AI-Driven Test Generation</h4>
+            <p>Built AI Test Auditor agent that parses OpenAPI/YAML schemas and auto-generates BDD Playwright test skeletons for feature-flagged PRs.</p>
+          </div>
+        </div>
+        <div class="ai-exp-item">
+          <div class="ai-exp-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          </div>
+          <div>
+            <h4>Anomaly Detection</h4>
+            <p>Implementing anomaly detection patterns for AI/LLM workflows, ensuring consistent behavior and flagging unexpected outputs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Contact</span>
+      <h2 class="section-title">Let's Connect</h2>
+    </div>
+    <div class="contact-content fade-in">
+      <p class="contact-intro">I'm always open to discussing new opportunities, interesting projects, or just having a chat about quality engineering and automation.</p>
+      <div class="contact-links">
+        <a href="mailto:narmathaofficial18@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          narmathaofficial18@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/narmatha18" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          linkedin.com/in/narmatha18
+        </a>
+        <div class="contact-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Bangalore, India
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Narmatha M — Crafted with <span>precision</span>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+</script>
